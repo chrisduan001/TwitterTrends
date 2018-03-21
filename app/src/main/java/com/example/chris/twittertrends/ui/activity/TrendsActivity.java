@@ -1,9 +1,11 @@
-package com.example.chris.twittertrends;
+package com.example.chris.twittertrends.ui.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class TrendsActivity extends AppCompatActivity {
+import com.example.chris.twittertrends.R;
+
+public class TrendsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
