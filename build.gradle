@@ -43,6 +43,10 @@ ext {
             retrofit_version: '2.3.0',
             log_interceptor_version: '3.4.2',
             rxjava_adapter_version: '2.2.0',
+
+            //others
+            picasso: '2.71828',
+            butterknife: '8.8.1'
     ]
 
     libs = [
@@ -63,7 +67,12 @@ ext {
             retrofit: "com.squareup.retrofit2:retrofit:${versions.retrofit_version}",
             retrofitGson: "com.squareup.retrofit2:converter-gson:${versions.retrofit_version}",
             okhttpInteceptor: "com.squareup.okhttp3:logging-interceptor:${versions.log_interceptor_version}",
-            retrofitAdapter: "com.squareup.retrofit2:adapter-rxjava2:${versions.rxjava_adapter_version}"
+            retrofitAdapter: "com.squareup.retrofit2:adapter-rxjava2:${versions.rxjava_adapter_version}",
+
+            //others
+            picasso: "com.squareup.picasso:picasso:${versions.picasso}",
+            butterKnife: "com.jakewharton:butterknife:${versions.butterknife}",
+            butterKnifeAnnotation: "com.jakewharton:butterknife-compiler:${versions.butterknife}"
     ]
 }
 

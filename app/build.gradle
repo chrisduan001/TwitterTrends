@@ -40,6 +40,11 @@ dependencies {
     implementation libs.okhttpInteceptor
     implementation libs.retrofitAdapter
 
+    //others
+    implementation libs.picasso
+    implementation libs.butterKnife
+    annotationProcessor libs.butterKnifeAnnotation
+
     //testing
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

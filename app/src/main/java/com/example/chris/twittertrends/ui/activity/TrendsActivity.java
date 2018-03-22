@@ -1,6 +1,5 @@
 package com.example.chris.twittertrends.ui.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.chris.twittertrends.R;
