@@ -1,6 +1,7 @@
 package com.example.chris.twittertrends.ui.fragment;
 
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,8 @@ public abstract class BaseFragment extends Fragment {
     @Nullable @BindView(R.id.progress_bar) ViewGroup progressView;
 
     //region common utilities
-    protected void showToast(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    protected void showToast(@StringRes int message) {
+        Toast.makeText(getActivity(), getString(message), Toast.LENGTH_SHORT).show();
     }
 
     protected void showProgress() {
