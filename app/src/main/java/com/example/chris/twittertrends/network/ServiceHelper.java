@@ -14,7 +14,8 @@ import io.reactivex.Single;
  */
 
 public class ServiceHelper {
-    private static final String BASIC_AUTH_TOKEN = "SkpJOGlPejlKb1h2bW5RaVhtbnNYTXdiNDpsYlBBWkZVejZ5N3lYVWtVU3NsbzJYMFVMM3JBMU9zdE00SkJMNE1Ta0ZGS3g4dXhRYQ==";
+    private static final String BASIC_AUTH_TOKEN = "Basic SkpJOGlPejlKb1h2bW5RaVhtbnNYTXdiNDpsYlBBWkZVejZ5N3lYVWtVU3NsbzJYMFVMM3JBMU9zdE00SkJMNE1Ta0ZGS3g4dXhRYQ==";
+    private static final String GRANT_TYPE = "client_credentials";
 
     private final TwitterApi twitterApi;
 
@@ -23,7 +24,7 @@ public class ServiceHelper {
     }
 
     public Single<TokenEntity> getOauthToken() {
-        return twitterApi.getOauthToken(BASIC_AUTH_TOKEN);
+        return twitterApi.getOauthToken(BASIC_AUTH_TOKEN, GRANT_TYPE);
     }
 
     public Single<List<LocationEntity>> getClosestLocation(String token, String lat, String longi) {

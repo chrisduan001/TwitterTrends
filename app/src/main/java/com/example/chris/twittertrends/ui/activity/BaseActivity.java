@@ -1,6 +1,7 @@
 package com.example.chris.twittertrends.ui.activity;
 
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -28,8 +29,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected @interface FrgTransactionType{}
 
     @Override
+    @CallSuper
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        initInjector();
     }
 
     //region di
@@ -38,11 +42,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
     //endregion
 
-    //region common utilities
-    protected void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
-    //endregion
+    protected abstract void initInjector();
 
     protected void replaceFragment(Fragment fragment, @Nullable String tag,
                                    @FrgTransactionType int type) {
