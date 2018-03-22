@@ -10,5 +10,5 @@ import java.util.List;
 
 public class PlaceEntity {
     @SerializedName("trends")
-    List<TrendsEntity> trendsList;
+    public List<TrendsEntity> trendsList;
 }
