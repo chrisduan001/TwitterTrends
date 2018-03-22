@@ -5,6 +5,7 @@ import android.content.Context;
 import com.example.chris.twittertrends.di.modules.ApplicationModule;
 import com.example.chris.twittertrends.di.modules.NetworkModule;
 import com.example.chris.twittertrends.network.ServiceHelper;
+import com.example.chris.twittertrends.util.AppSharedPreference;
 
 import javax.inject.Singleton;
 
@@ -19,4 +20,5 @@ public interface ApplicationComponent {
 
     ServiceHelper serviceHelper();
     Context context();
+    AppSharedPreference sharedPreference();
 }
