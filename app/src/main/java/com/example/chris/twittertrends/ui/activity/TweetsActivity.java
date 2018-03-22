@@ -11,6 +11,7 @@ import com.example.chris.twittertrends.R;
 import com.example.chris.twittertrends.di.HasComponent;
 import com.example.chris.twittertrends.di.components.DaggerTweetsComponent;
 import com.example.chris.twittertrends.di.components.TweetsComponent;
+import com.example.chris.twittertrends.ui.fragment.TweetsFragment;
 import com.example.chris.twittertrends.util.AppToolbar;
 
 import butterknife.BindView;
@@ -23,7 +24,7 @@ import butterknife.ButterKnife;
 public class TweetsActivity extends BaseActivity implements HasComponent<TweetsComponent> {
 
     private static final String EXTRA_HASHTAG_TITLE = "HASH_TAG_TITLE";
-    private static final String EXTRA_SEARCH_QUERY = "SEARCH_QUERY";
+    public static final String EXTRA_SEARCH_QUERY = "SEARCH_QUERY";
     public static Intent setBundle(Context context, String hashTagTitle, String query) {
         Intent intent = new Intent(context, TweetsActivity.class);
 
@@ -48,6 +49,11 @@ public class TweetsActivity extends BaseActivity implements HasComponent<TweetsC
         ButterKnife.bind(this);
 
         initToolbar();
+
+        replaceFragment(TweetsFragment.newInstance(
+                getExtraQuery()),
+                TweetsFragment.class.getSimpleName(),
+                REPLACE_FRAGMENT);
     }
 
     @Override
@@ -86,6 +92,12 @@ public class TweetsActivity extends BaseActivity implements HasComponent<TweetsC
         Bundle bundle = getIntent().getExtras();
 
         return bundle == null ? "" : bundle.getString(EXTRA_HASHTAG_TITLE);
+    }
+
+    private String getExtraQuery() {
+        Bundle bundle = getIntent().getExtras();
+
+        return bundle == null ? "" : bundle.getString(EXTRA_SEARCH_QUERY);
     }
     //endregion
 }
