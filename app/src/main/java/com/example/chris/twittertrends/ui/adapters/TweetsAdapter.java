@@ -28,6 +28,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetsVH> 
 
     public void updateList(List<StatusEntity> tweets) {
         tweetsList = tweets;
+
+        notifyDataSetChanged();
     }
 
     @NonNull

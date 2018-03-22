@@ -11,8 +11,14 @@ import android.view.ViewGroup;
 
 import com.example.chris.twittertrends.R;
 import com.example.chris.twittertrends.di.components.TweetsComponent;
+import com.example.chris.twittertrends.entities.StatusEntity;
+import com.example.chris.twittertrends.presenter.TweetsPresenter;
 import com.example.chris.twittertrends.ui.activity.TweetsActivity;
 import com.example.chris.twittertrends.ui.adapters.TweetsAdapter;
+
+import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,7 +27,7 @@ import butterknife.ButterKnife;
  * Created by Chris on 3/22/18.
  */
 
-public class TweetsFragment extends BaseFragment {
+public class TweetsFragment extends BaseFragment implements TweetsPresenter.TweetsView {
     public static TweetsFragment newInstance(String searchQuery) {
         TweetsFragment fragment = new TweetsFragment();
 
@@ -34,6 +40,8 @@ public class TweetsFragment extends BaseFragment {
     }
 
     @BindView(R.id.recyclerview) RecyclerView recyclerView;
+
+    @Inject TweetsPresenter presenter;
 
     private TweetsAdapter adapter;
 
@@ -52,8 +60,23 @@ public class TweetsFragment extends BaseFragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        presenter.getTweets(getArguments().getString(TweetsActivity.EXTRA_SEARCH_QUERY, ""));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        presenter.onPause();
+    }
+
     private void initInjector() {
         getComponent(TweetsComponent.class).inject(this);
+        presenter.setView(this);
     }
 
     private void setupRecycler() {
@@ -61,6 +84,28 @@ public class TweetsFragment extends BaseFragment {
         adapter = new TweetsAdapter();
 
         recyclerView.setAdapter(adapter);
+    }
+    //endregion
+
+    //region presenter callback
+    @Override
+    public void onError(int error) {
+        showToast(error);
+    }
+
+    @Override
+    public void showProgress() {
+        showProgressDialog();
+    }
+
+    @Override
+    public void dismissProgres() {
+        dismissProgressDialog();
+    }
+
+    @Override
+    public void onGetTweetStatus(List<StatusEntity> status) {
+        adapter.updateList(status);
     }
     //endregion
 }
