@@ -15,13 +15,15 @@ import com.example.chris.twittertrends.R;
 import com.example.chris.twittertrends.di.HasComponent;
 import com.example.chris.twittertrends.di.components.DaggerTrendsComponent;
 import com.example.chris.twittertrends.di.components.TrendsComponent;
+import com.example.chris.twittertrends.ui.activity.listener.TrendsActivityListener;
 import com.example.chris.twittertrends.ui.fragment.TrendsFragment;
 import com.example.chris.twittertrends.util.AppToolbar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TrendsActivity extends BaseActivity implements HasComponent<TrendsComponent> {
+public class TrendsActivity extends BaseActivity implements
+        HasComponent<TrendsComponent>, TrendsActivityListener {
     private static final int REQUEST_LOCATION_PERMISSION_CODE = 100;
 
     @BindView(R.id.toolbar) AppToolbar toolbar;
@@ -30,6 +32,8 @@ public class TrendsActivity extends BaseActivity implements HasComponent<TrendsC
 
     //Should only show the custom location permission dialog once
     private boolean showDialogOnce = false;
+    //Onresume called when permission changed, need only check the permission once
+    private boolean hasCheckedUserPermission = false;
 
     //region init
     @Override
@@ -48,7 +52,10 @@ public class TrendsActivity extends BaseActivity implements HasComponent<TrendsC
     protected void onResume() {
         super.onResume();
 
-        checkLocationPermission();
+        if (!hasCheckedUserPermission) {
+            hasCheckedUserPermission = true;
+            checkLocationPermission();
+        }
     }
 
     @Override
@@ -165,6 +172,12 @@ public class TrendsActivity extends BaseActivity implements HasComponent<TrendsC
         dialog.show();
     }
     //endregion
+
+    //fragment call
+    @Override
+    public void onTrendsSelected(String name, String query) {
+        startActivity(TweetsActivity.setBundle(this, name, query));
+    }
 
     public interface TrendsContract {
         void onLocationPermissionGranted();

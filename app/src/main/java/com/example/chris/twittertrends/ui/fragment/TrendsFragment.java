@@ -1,6 +1,7 @@
 package com.example.chris.twittertrends.ui.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,6 +19,7 @@ import com.example.chris.twittertrends.di.components.TrendsComponent;
 import com.example.chris.twittertrends.entities.TrendsEntity;
 import com.example.chris.twittertrends.presenter.TrendsPresenter;
 import com.example.chris.twittertrends.ui.activity.TrendsActivity;
+import com.example.chris.twittertrends.ui.activity.listener.TrendsActivityListener;
 import com.example.chris.twittertrends.ui.adapters.TrendsAdapter;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -38,7 +40,7 @@ import static android.content.ContentValues.TAG;
 
 public class TrendsFragment extends BaseFragment implements
         TrendsActivity.TrendsContract, TrendsAdapter.TrendsAdapterListener,
-        TrendsPresenter.TrendsView{
+        TrendsPresenter.TrendsView {
 
     @BindView(R.id.recyclerview) RecyclerView recyclerView;
     @BindView(R.id.location_tv) TextView locationText;
@@ -47,7 +49,19 @@ public class TrendsFragment extends BaseFragment implements
 
     @Inject TrendsPresenter presenter;
 
+    private TrendsActivityListener activityListener;
+
     //region init
+    @Override
+    public void onAttach(Context context) {
+        if (context instanceof TrendsActivityListener) {
+            activityListener = (TrendsActivityListener) context;
+        } else {
+            throw new IllegalStateException("Must implement TrendsActivityListener");
+        }
+        super.onAttach(context);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -129,7 +143,7 @@ public class TrendsFragment extends BaseFragment implements
 
     @Override
     public void onTrendsClicked(TrendsEntity trends) {
-
+        activityListener.onTrendsSelected(trends.trendsName, trends.trendsQuery);
     }
 
     //location

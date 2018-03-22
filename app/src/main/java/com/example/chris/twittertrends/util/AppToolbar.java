@@ -39,6 +39,14 @@ public class AppToolbar extends Toolbar {
         toolbarTitle.setText(getContext().getString(stringRes));
     }
 
+    public void showToolbarTitle(String title) {
+        if (toolbarTitle == null) {
+            initView();
+        }
+
+        toolbarTitle.setText(title);
+    }
+
     private void initView() {
         ButterKnife.bind(this);
     }
