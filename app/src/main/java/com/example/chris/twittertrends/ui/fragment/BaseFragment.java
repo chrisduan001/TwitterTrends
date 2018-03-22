@@ -24,13 +24,13 @@ public abstract class BaseFragment extends Fragment {
         Toast.makeText(getActivity(), getString(message), Toast.LENGTH_SHORT).show();
     }
 
-    protected void showProgress() {
+    protected void showProgressDialog() {
         if (progressView != null) {
             progressView.setVisibility(View.VISIBLE);
         }
     }
 
-    protected void dismissProgress() {
+    protected void dismissProgressDialog() {
         if (progressView != null) {
             progressView.setVisibility(View.GONE);
         }
