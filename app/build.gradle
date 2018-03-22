@@ -25,6 +25,7 @@ dependencies {
     implementation libs.appcompatv7
     implementation libs.constraintlayout
     implementation libs.designLibrary
+    implementation libs.playserviceLocation
 
     //rxjava2
     implementation libs.rxandroid

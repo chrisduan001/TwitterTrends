@@ -7,4 +7,5 @@
     <string name="request">Request</string>
     <string name="cancel">Cancel</string>
     <string name="permission_deny">Permission denied, displaying global trends</string>
+    <string name="get_location_failed">Unable to get your device location, showing global trends</string>
 </resources>

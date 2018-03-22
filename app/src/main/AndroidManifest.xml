@@ -13,7 +13,10 @@
         android:supportsRtl="true"
         android:name=".TwitterTrendsApplication"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.TrendsActivity">
+        <!--due to time constraints screen rotation was disabled-->
+        <activity
+            android:name=".ui.activity.TrendsActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
