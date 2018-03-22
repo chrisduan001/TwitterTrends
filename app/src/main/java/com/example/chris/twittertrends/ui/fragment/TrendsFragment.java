@@ -5,6 +5,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +14,9 @@ import android.view.ViewGroup;
 
 import com.example.chris.twittertrends.R;
 import com.example.chris.twittertrends.di.components.TrendsComponent;
+import com.example.chris.twittertrends.entities.TrendsEntity;
 import com.example.chris.twittertrends.ui.activity.TrendsActivity;
+import com.example.chris.twittertrends.ui.adapters.TrendsAdapter;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,9 +30,11 @@ import static android.content.ContentValues.TAG;
  * Created by Chris on 3/21/18.
  */
 
-public class TrendsFragment extends BaseFragment implements TrendsActivity.TrendsContract {
+public class TrendsFragment extends BaseFragment
+        implements TrendsActivity.TrendsContract, TrendsAdapter.TrendsAdapterListener {
 
     @BindView(R.id.recyclerview) RecyclerView recyclerView;
+    private TrendsAdapter adapter;
 
     //region init
     @Nullable
@@ -42,11 +47,20 @@ public class TrendsFragment extends BaseFragment implements TrendsActivity.Trend
 
         initInjector();
 
+        setupRecycler();
+
         return view;
     }
 
     private void initInjector() {
         getComponent(TrendsComponent.class).inject(this);
+    }
+
+    private void setupRecycler() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new TrendsAdapter(this);
+
+        recyclerView.setAdapter(adapter);
     }
     //endregion
 
@@ -64,6 +78,11 @@ public class TrendsFragment extends BaseFragment implements TrendsActivity.Trend
         showToast(R.string.permission_deny);
     }
     //endregion
+
+    @Override
+    public void onTrendsClicked(TrendsEntity trends) {
+
+    }
 
     //location
     @SuppressLint("MissingPermission")
